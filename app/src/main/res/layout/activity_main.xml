@@ -12,7 +12,7 @@
         android:layout_height="match_parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/AddButton"
+        android:id="@+id/AddTaskButton"
         android:layout_width="57dp"
         android:layout_height="70dp"
         android:layout_marginEnd="32dp"
