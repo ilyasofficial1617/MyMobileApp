@@ -29,7 +29,7 @@ public class CustomListAdapter extends android.widget.ArrayAdapter {
 
         //search element in template
         TextView nameField = (TextView) rowView.findViewById(R.id.nameTextview);
-        TextView detailField = (TextView) rowView.findViewById(R.id.nameTextview);
+        TextView detailField = (TextView) rowView.findViewById(R.id.detailsTextview);
 
         //set value from array to field
         nameField.setText(tasksName[position]);
