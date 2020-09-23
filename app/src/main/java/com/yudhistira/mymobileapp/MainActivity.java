@@ -17,13 +17,12 @@ public class MainActivity extends AppCompatActivity {
     ListView listView;
 
     //dummy data
-    String[] tasksName = {"belanja","memasak","belajar","bermain","kesana kemari dan tertawa"};
-    String[] tasksDetail = {
-            "di online shop",
-            "overcooked game",
-            "android dev",
-            "counter strike global offensive",
-            "bila saatnya tlah tiba"
+    Task[] tasks = {
+            new Task("belanja","di online shop"),
+            new Task("memasak","overcooked game"),
+            new Task("belajar","android dev"),
+            new Task("bermain","counter strike global offensive"),
+            new Task("kesana kemari dan tertawa","bila saatnya tlah tiba")
     };
 
     @Override
@@ -32,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //custom listadapter for listview
-        CustomListAdapter listAdapter = new CustomListAdapter(this, tasksName, tasksDetail);
+        CustomListAdapter listAdapter = new CustomListAdapter(this,tasks);
         //get listview and set the adapter
         listView = (ListView) findViewById(R.id.TaskListview);
         listView.setAdapter(listAdapter);

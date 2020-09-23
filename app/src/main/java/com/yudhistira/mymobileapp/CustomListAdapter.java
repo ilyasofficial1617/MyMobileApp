@@ -11,16 +11,12 @@ public class CustomListAdapter extends android.widget.ArrayAdapter {
     private final Activity context;
 
     //store list of taskname
-    private final String[] tasksName;
+    private final Task[] tasks;
 
-    //store list of taskdetails
-    private final String[] tasksDetail;
-
-    public CustomListAdapter(Activity context, String[] tasksName, String[] tasksDetail){
-        super(context, R.layout.row_listview, tasksName);
+    public CustomListAdapter(Activity context,Task[] tasks){
+        super(context, R.layout.row_listview, tasks);
         this.context = context;
-        this.tasksName = tasksName;
-        this.tasksDetail = tasksDetail;
+        this.tasks = tasks;
     }
 
     public View getView(int position, View view, ViewGroup parent){
@@ -32,8 +28,8 @@ public class CustomListAdapter extends android.widget.ArrayAdapter {
         TextView detailField = (TextView) rowView.findViewById(R.id.detailsTextview);
 
         //set value from array to field
-        nameField.setText(tasksName[position]);
-        detailField.setText(tasksDetail[position]);
+        nameField.setText(tasks[position].getName());
+        detailField.setText(tasks[position].getDetail());
 
         return rowView;
     }
