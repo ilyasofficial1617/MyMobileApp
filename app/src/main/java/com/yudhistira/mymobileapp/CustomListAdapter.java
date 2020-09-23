@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -21,17 +22,29 @@ public class CustomListAdapter extends android.widget.ArrayAdapter {
         this.tasks = tasks;
     }
 
-    public View getView(int position, View view, ViewGroup parent){
+    public View getView(final int position, View view, ViewGroup parent){
         LayoutInflater inflater = context.getLayoutInflater();
         View rowView = inflater.inflate(R.layout.row_listview, null, true);
 
         //search element in template
         TextView nameField = (TextView) rowView.findViewById(R.id.nameTextview);
         TextView detailField = (TextView) rowView.findViewById(R.id.detailsTextview);
+        ImageButton deleteButton = (ImageButton) rowView.findViewById(R.id.DeleteButton);
 
-        //set value from array to field
+        //set value from array to list elements
         nameField.setText(tasks.get(position).getName());
         detailField.setText(tasks.get(position).getDetail());
+        //add onclick delete
+        deleteButton.setOnClickListener(
+                new View.OnClickListener(){
+                    @Override
+                    public void onClick(View v){
+                        tasks.remove(position);
+                        CustomListAdapter.this.notifyDataSetChanged();
+                    }
+                }
+
+        );
 
         return rowView;
     }
