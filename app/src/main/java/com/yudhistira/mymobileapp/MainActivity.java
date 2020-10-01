@@ -9,9 +9,7 @@ import android.widget.ListView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.nio.channels.FileLock;
 import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         FloatingActionButton addButton = (FloatingActionButton) findViewById(R.id.AddTaskButton);
         addButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                startActivityForResult(new Intent(MainActivity.this,TaskAdder.class),0);
+                startActivityForResult(new Intent(MainActivity.this, TaskEditor.class),0);
             }
         });
     }
@@ -51,10 +49,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode,resultCode,data);
-        if(requestCode == 0 && resultCode == RESULT_OK && data!= null){
-            Task task = (Task)data.getSerializableExtra("newTask");
-            tasks.add(task);
-            listAdapter.notifyDataSetChanged();
+        Task task = (Task)data.getSerializableExtra("newTask");
+        if(resultCode == RESULT_OK && data!= null){
+            if(requestCode == 0){
+                tasks.add(task);
+            } else if(requestCode == 1){
+                int index = data.getIntExtra("index",0);
+                tasks.set(index,task);
+            }
+
         }
+        listAdapter.notifyDataSetChanged();
     }
 }
