@@ -11,6 +11,10 @@ public class Task implements Serializable {
         this.detail = detail;
     }
 
+    public Task(){
+
+    }
+
     public String getName() {
         return name;
     }
