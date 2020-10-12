@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputLayout;
+import com.yudhistira.mymobileapp.base.Task;
 
 public class TaskEditor extends AppCompatActivity {
     Task task;

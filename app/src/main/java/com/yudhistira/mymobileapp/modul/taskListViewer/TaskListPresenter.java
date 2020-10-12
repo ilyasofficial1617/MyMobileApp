@@ -1,6 +1,6 @@
-package com.yudhistira.mymobileapp.modul.TaskListViewer;
+package com.yudhistira.mymobileapp.modul.taskListViewer;
 
-import com.yudhistira.mymobileapp.Task;
+import com.yudhistira.mymobileapp.base.Task;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package com.yudhistira.mymobileapp.modul.TaskListViewer;
+package com.yudhistira.mymobileapp.modul.taskListViewer;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,7 +10,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.yudhistira.mymobileapp.R;
-import com.yudhistira.mymobileapp.Task;
+import com.yudhistira.mymobileapp.base.Task;
 import com.yudhistira.mymobileapp.TaskEditor;
 
 import java.io.Serializable;

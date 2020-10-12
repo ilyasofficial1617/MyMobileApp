@@ -1,4 +1,4 @@
-package com.yudhistira.mymobileapp;
+package com.yudhistira.mymobileapp.base;
 
 import java.io.Serializable;
 
