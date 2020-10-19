@@ -10,11 +10,29 @@ import android.widget.TextView;
 
 import com.yudhistira.mymobileapp.R;
 import com.yudhistira.mymobileapp.TaskEditor;
+import com.yudhistira.mymobileapp.base.BaseFragmentHolderActivity;
 import com.yudhistira.mymobileapp.base.Profile;
+import com.yudhistira.mymobileapp.modul.login.LoginFragment;
 import com.yudhistira.mymobileapp.modul.taskListViewer.TaskListActivity;
 
-public class ProfileActivity extends AppCompatActivity implements ProfileContract.View{
+public class ProfileActivity extends BaseFragmentHolderActivity{
+    ProfileFragment profileFragment;
+    private final int UPDATE_REQUEST = 2019;
 
+    @Override
+    protected void initializeFragment() {
+        initializeView();
+
+        btBack.setVisibility(View.GONE);
+        btOptionMenu.setVisibility(View.GONE);
+//        ivIcon.setImageResource(R.drawable.....);
+        ivIcon.setVisibility(View.VISIBLE);
+
+        profileFragment = new ProfileFragment();
+        setCurrentFragment(profileFragment, false);
+    }
+
+    /*
     TextView usernameText;
     TextView passwordText;
 
@@ -39,7 +57,7 @@ public class ProfileActivity extends AppCompatActivity implements ProfileContrac
 
         taskListButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                startActivityForResult(new Intent(ProfileActivity.this, TaskListActivity.class),0);
+                startActivity(new Intent(ProfileActivity.this, TaskListActivity.class));
             }
         });
 
@@ -49,4 +67,5 @@ public class ProfileActivity extends AppCompatActivity implements ProfileContrac
     public void setPresenter(ProfileContract.Presenter presenter) {
         this.presenter = presenter;
     }
+    */
 }

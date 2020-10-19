@@ -9,7 +9,7 @@
 
     <fragment
         android:id="@+id/task_listview"
-        android:name="com.yudhistira.mymobileapp.modul.taskListViewer.TaskListView"
+        android:name="com.yudhistira.mymobileapp.modul.taskListViewer.TaskListFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

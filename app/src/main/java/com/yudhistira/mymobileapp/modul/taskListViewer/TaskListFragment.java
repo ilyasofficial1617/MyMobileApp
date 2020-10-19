@@ -13,14 +13,17 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.yudhistira.mymobileapp.R;
+import com.yudhistira.mymobileapp.base.BaseFragment;
 import com.yudhistira.mymobileapp.base.Task;
 import com.yudhistira.mymobileapp.TaskEditor;
+import com.yudhistira.mymobileapp.modul.login.LoginActivity;
+import com.yudhistira.mymobileapp.modul.login.LoginContract;
 
 import java.util.ArrayList;
 
 import static android.app.Activity.RESULT_OK;
 
-public class TaskListView extends Fragment implements TaskListContract.View{
+public class TaskListFragment extends BaseFragment<TaskListActivity, TaskListContract.Presenter> implements TaskListContract.View{
 
     TaskListContract.Presenter presenter;
     ListView listView;
@@ -40,7 +43,7 @@ public class TaskListView extends Fragment implements TaskListContract.View{
         FloatingActionButton addButton = (FloatingActionButton) layoutView.findViewById(R.id.AddTaskButton);
         addButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                startActivityForResult(new Intent(getActivity(), TaskEditor.class),0);
+                getActivity().startActivityForResult(new Intent(getActivity(), TaskEditor.class),0);
             }
         });
 
