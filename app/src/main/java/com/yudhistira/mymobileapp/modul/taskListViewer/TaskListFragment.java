@@ -2,6 +2,7 @@ package com.yudhistira.mymobileapp.modul.taskListViewer;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,38 +15,57 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.yudhistira.mymobileapp.R;
 import com.yudhistira.mymobileapp.base.BaseFragment;
+import com.yudhistira.mymobileapp.base.Profile;
 import com.yudhistira.mymobileapp.base.Task;
-import com.yudhistira.mymobileapp.TaskEditor;
 import com.yudhistira.mymobileapp.modul.login.LoginActivity;
 import com.yudhistira.mymobileapp.modul.login.LoginContract;
+import com.yudhistira.mymobileapp.modul.taskEditor.TaskEditorActivity;
 
 import java.util.ArrayList;
 
 import static android.app.Activity.RESULT_OK;
 
-public class TaskListFragment extends BaseFragment<TaskListActivity, TaskListContract.Presenter> implements TaskListContract.View{
+public class TaskListFragment extends BaseFragment<TaskListActivity, TaskListContract.Presenter> implements TaskListContract.View, CustomListAdapter.EventListener{
 
     TaskListContract.Presenter presenter;
     ListView listView;
     CustomListAdapter listAdapter;
     View layoutView;
+    FloatingActionButton addButton;
+    FloatingActionButton shareButton;
+    Profile profile;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        setPresenter(new TaskListPresenter(this));
+        setPresenter(new TaskListPresenter(this,getContext()));
         layoutView = inflater.inflate(R.layout.task_list_view, container, false);
 
         listView = (ListView) layoutView.findViewById(R.id.TaskListview);
-        presenter.start();
+
+        Intent intent = getActivity().getIntent();
+        profile  = (Profile) intent.getSerializableExtra("profile");
+        setTitle("Hello "+profile.getName());
 
         //get add button
-        FloatingActionButton addButton = (FloatingActionButton) layoutView.findViewById(R.id.AddTaskButton);
+        addButton = (FloatingActionButton) layoutView.findViewById(R.id.AddTaskButton);
         addButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                getActivity().startActivityForResult(new Intent(getActivity(), TaskEditor.class),0);
+                redirectToTaskEditor();
             }
         });
+        //get share button
+        shareButton = (FloatingActionButton) layoutView.findViewById(R.id.ShareTasksButton);
+        shareButton.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                share();
+            }
+        });
+
+        listAdapter = new CustomListAdapter(getActivity(),new ArrayList<Task>(),this);
+        listView.setAdapter(listAdapter);
+
+        presenter.start();
 
         return layoutView;
     }
@@ -62,26 +82,38 @@ public class TaskListFragment extends BaseFragment<TaskListActivity, TaskListCon
     }
 
     @Override
-    public void setupContentList(ArrayList<Task> list) {
-        //custom listadapter for listview
-        listAdapter = new CustomListAdapter(getActivity(),list);
-        listView.setAdapter(listAdapter);
+    public void updateContentList(ArrayList<Task> list) {
+        listAdapter.update(list);
+        listAdapter.notifyDataSetChanged();
+        Log.d("pak","masuk update");
     }
 
-    //receive input from task adder
+    public void redirectToTaskEditor() {
+        Intent intent = new Intent(getActivity(), TaskEditorActivity.class);
+        getActivity().startActivityForResult(intent,0);
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
-        super.onActivityResult(requestCode,resultCode,data);
-        Task task = (Task)data.getSerializableExtra("newTask");
-        if(resultCode == RESULT_OK && data!= null){
-            if(requestCode == 0){
-                presenter.add(task);
-            } else if(requestCode == 1){
-                int index = data.getIntExtra("index",0);
-                presenter.add(task);
-            }
+        presenter.start();
+    }
 
-        }
-        listAdapter.notifyDataSetChanged();
+    public void share(){
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT,
+                "TaskList "+profile.getName()+"\n\n"+
+                presenter.getSummary());
+        sendIntent.setType("text/plain");
+
+        Intent shareIntent = Intent.createChooser(sendIntent, null);
+        startActivity(shareIntent);
+    }
+
+    @Override
+    public void onEventChecked(Task task) {
+        presenter.update(task);
+        presenter.start();
+        Log.d("pak","masok on event checked");
     }
 }

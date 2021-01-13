@@ -17,7 +17,7 @@
         </activity>
         <activity android:name=".modul.taskListViewer.TaskListActivity"></activity>
         <activity android:name=".TaskEditor" />
-        <activity android:name=".modul.profile.ProfileActivity"></activity>
+        <activity android:name=".modul.taskEditor.TaskEditorActivity"></activity>
     </application>
 
 </manifest>

@@ -8,10 +8,10 @@ import java.util.ArrayList;
 
 public interface TaskListContract {
     interface View extends BaseView<Presenter> {
-        public void setupContentList(ArrayList<Task> list);
+        public void updateContentList(ArrayList<Task> list);
     }
     interface Presenter extends BasePresenter {
-        public void add(Task task);
-        public void replace(Task task, int index);
+        public String getSummary();
+        public void update(Task task);
     }
 }

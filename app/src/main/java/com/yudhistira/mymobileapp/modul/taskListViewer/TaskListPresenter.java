@@ -1,37 +1,49 @@
 package com.yudhistira.mymobileapp.modul.taskListViewer;
 
+import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
+
 import com.yudhistira.mymobileapp.base.Task;
+import com.yudhistira.mymobileapp.modul.repository.DatabaseHelper;
 
 import java.util.ArrayList;
 
 public class TaskListPresenter implements TaskListContract.Presenter {
     private final TaskListContract.View view;
+    DatabaseHelper dbHelper;
 
     CustomListAdapter listAdapter;
-    ArrayList<Task> tasks = new ArrayList<>();
+    ArrayList<Task> tasks;
 
-    public TaskListPresenter(TaskListContract.View view){
+    public TaskListPresenter(TaskListContract.View view, Context context){
         this.view = view;
-        //dummy data
-        tasks.add(new Task("belanja","di online shop"));
-        tasks.add(new Task("belajar","android dev"));
-        tasks.add(new Task("memasak","overcooked game"));
-        tasks.add(new Task("belajar","android dev"));
-        tasks.add(new Task("kesana kemari dan tertawa","bila saatnya tlah tiba"));
+        dbHelper = new DatabaseHelper(context);
     }
 
     @Override
     public void start() {
-        view.setupContentList(tasks);
+        tasks = dbHelper.getAllTask();
+        view.updateContentList(tasks);
+
+    }
+
+
+    @Override
+    public String getSummary() {
+        String result = "";
+        for(int i = 0; i<tasks.size(); i++){
+            result+=tasks.get(i).getName();
+            result+="\n";
+            result+=tasks.get(i).getDetail();
+            result+="\n";
+            result+="\n";
+        }
+        return result;
     }
 
     @Override
-    public void add(Task task) {
-        this.tasks.add(task);
-    }
-
-    @Override
-    public void replace(Task task, int index) {
-        this.tasks.set(index,task);
+    public void update(Task task) {
+        dbHelper.updateTask(task);
     }
 }

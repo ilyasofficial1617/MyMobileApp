@@ -10,6 +10,8 @@
         android:id="@+id/TaskListview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="-286dp"
         tools:listitem="@layout/row_listview">
 
     </ListView>
@@ -23,10 +25,20 @@
         android:layout_marginBottom="32dp"
         android:clickable="true"
         android:scaleType="fitStart"
-        app:backgroundTint="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:maxImageSize="64dp"
         app:srcCompat="@android:drawable/ic_menu_add" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/ShareTasksButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="32dp"
+        android:layout_marginBottom="32dp"
+        android:clickable="true"
+        android:src="@android:drawable/ic_menu_share"
+        app:layout_constraintBottom_toTopOf="@id/AddTaskButton"
+        app:layout_constraintRight_toRightOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,8 +3,8 @@ package com.yudhistira.mymobileapp.base;
 import java.io.Serializable;
 
 public class Profile implements Serializable {
-    public String name;
-    public String password;
+    private String name;
+    private String password;
 
     public Profile(String name, String password) {
         this.name = name;

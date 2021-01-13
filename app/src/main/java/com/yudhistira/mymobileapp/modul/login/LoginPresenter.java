@@ -21,7 +21,7 @@ public class LoginPresenter implements LoginContract.Presenter{
         //proses login
         Profile profile = new Profile(username, password);
         //if login success call redirect to profile
-        view.redirectToProfile(profile);
+        view.redirectToTaskList(profile);
     }
 
 }
